@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const app = express();
 
 // connect to mongodb
-const dbUri = 'mongodb+srv://Flextech:@Akaka1na5@flextech-blog.m0d8jso.mongodb.net/Flextec-blog?retryWrites=true&w=majority'
+const dbUri = 'mongodb+srv://Andrenz:Akaka1na5@flextech-blog.m0d8jso.mongodb.net/?retryWrites=true&w=majority';
+
 mongoose.connect(dbUri);
 const port = 3000;
 
