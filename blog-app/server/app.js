@@ -1,6 +1,10 @@
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
+// connect to mongodb
+const dbUri = 'mongodb+srv://Flextech:@Akaka1na5@flextech-blog.m0d8jso.mongodb.net/?retryWrites=true&w=majority'
+
 const port = 3000;
 
 // register a view engine
@@ -9,6 +13,10 @@ app.set('view engine', 'ejs');
 app.listen(port, () => {
         console.log(`server is running on ${port}`);
 });
+
+// middleware static files (css, imafes e.t.c)
+app.use(express.static('public'));
+app.use(morgan('dev'));
 
 
 app.get('/', (req, res) => {
