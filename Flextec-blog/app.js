@@ -59,7 +59,6 @@ app.get('/blogs/post', (req, res) => {
     res.render('post', { title: 'Post' });
 });
 
-/*app.use((req, res) => {
+app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
 });
-*/
