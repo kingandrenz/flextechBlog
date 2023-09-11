@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Blog = require('./models/blogs');
-const { result } = require('lodash');
+
 
 const app = express();
 const Port = 3000;
@@ -20,7 +20,12 @@ app.set('view engine', 'ejs');
 
 // Middleware static files
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+app.use((req, res, next) => {
+  res.locals.path = req.path;
+  next();
+});
 
 // Basic routing
 app.get('/', (req, res) => {
@@ -46,14 +51,15 @@ app.get('/blogs', (req, res) => {
     });
 });
 
-app.get('/contact', (req, res) => {
+app.get('/blogs/contact', (req, res) => {
     res.render('contact', { title: 'Contact' });
 });
 
-app.get('/post', (req, res) => {
+app.get('/blogs/post', (req, res) => {
     res.render('post', { title: 'Post' });
 });
 
-app.get('/404', (req, res) => {
-    res.render('404', { title: '404' });
+/*app.use((req, res) => {
+    res.status(404).render('404', { title: '404' });
 });
+*/
