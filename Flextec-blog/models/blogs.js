@@ -17,7 +17,8 @@ const blogSchema = new schema({
     username: {
         type: String,
         required: true
-    }
+    },
+    image: String
 
 }, {timestamps: true});
 

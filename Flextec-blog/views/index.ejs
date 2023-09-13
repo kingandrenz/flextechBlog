@@ -36,8 +36,7 @@
                                             <%= blog.snippet %>
                                         </p>
                                     </a>
-                                    <p class="post-meta">
-                                        Posted by
+                                    <p class="post-meta">Posted by
                                         <a href="#"><%= blog.username %></a>
                                         on <%= blog.createdAt.toDateString() %>
                                     </p>
@@ -49,6 +48,10 @@
                         <!-- Divider-->
                         <hr class="my-4" />
                     </div>
+                                        <!-- Pager -->
+                        <div class="clearfix">
+                            <a class="btn btn-primary float-right" href="#">Older Posts →</a>
+                        </div>
 
                     </div>
                 </div>
