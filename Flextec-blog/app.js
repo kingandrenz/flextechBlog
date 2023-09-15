@@ -3,17 +3,17 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Blog = require('./models/blogs');
 const fileUpload = require("express-fileupload");
-const { result } = require('lodash');
+const path = require('path');
 
 
 const app = express();
 const Port = 3000;
 
 // connect to mongodb & listen for requests
-const dbURI = 'mongodb+srv://Andrenz:Akaka1na5@flextech-blog.m0d8jso.mongodb.net/Flextech-blog?retryWrites=true&w=majority';
+const dbURI = 'mongodb+srv://Andrenz:Akaka1na5@flextech-blog.m0d8jso.mongodb.net/Flextech?retryWrites=true&w=majority';
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, })
-  .then(result => app.listen(3000, () => console.log(`listening on ${Port}`)))
+  .then(result => app.listen(Port, () => console.log(`listening on ${Port}`)))
   .catch(err => console.log(err));
 
 // register view
@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 
 // Middleware static files
 app.use(fileUpload());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use((req, res, next) => {
@@ -57,7 +57,7 @@ app.get('/blogs', (req, res) => {
 });
 
 app.post('/blogs', (req, res) => {
-    // console.log(bodey.req);
+    console.log(body.req);
     /*
     if we expect one uploaded file with a known field name(e.g, 'image'), we can us
     const { image } = req.files
@@ -112,10 +112,6 @@ app.get('/blogs/:id', (req, res) => {
 
 app.get('/contact', (req, res) => {
     res.render('contact', { title: 'Contact' });
-});
-
-app.get('/blogs/post', (req, res) => {
-    res.render('post', { title: 'Post' });
 });
 
 app.use((req, res) => {
