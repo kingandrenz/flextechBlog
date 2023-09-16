@@ -1,4 +1,5 @@
 const Blog = require('../models/blogs');
+const path = require('path');
 
 
 // blog_index, blog_details, blog_create_get, blog_create_post, blog_delete
@@ -49,7 +50,7 @@ const blog_create_post = (req, res) => {
     const image = files.image; // Access the uploaded image
 
     // Move the uploaded image to the desired location
-    image.mv(path.resolve(__dirname, 'public/uploads', image.name), (error) => {
+    image.mv(path.resolve(__dirname, '../public/uploads', image.name), (error) => {
         if (error) {
             console.error(error);
             return res.status(500).send('File upload failed.');
