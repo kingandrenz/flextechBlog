@@ -3,22 +3,7 @@
 * Copyright 2013-2023 Start Bootstrap
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-clean-blog/blob/master/LICENSE)
 */
-
-const $ = require('jquery'); // If not already installed
-require('datatables.net')(window, $);
-
-$(document).ready(function() {
-    // DataTables Initialization
-    $('#editor').DataTable();
-
-    // CKEditor Initialization
-    ClassicEditor
-        .create(document.querySelector('#editor'))
-        .catch(error => {
-            console.error(error);
-        });
-
-    // Scroll Behavior
+window.addEventListener('DOMContentLoaded', () => {
     let scrollPos = 0;
     const mainNav = document.getElementById('mainNav');
     const headerHeight = mainNav.clientHeight;
@@ -41,4 +26,4 @@ $(document).ready(function() {
         }
         scrollPos = currentTop;
     });
-});
+})

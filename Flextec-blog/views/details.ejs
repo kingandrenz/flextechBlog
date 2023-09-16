@@ -1,56 +1,64 @@
 <!DOCTYPE html>
 <html>
-    <%- include ('./partials/head.ejs') %>
+<%- include('./partials/head.ejs') %>
 <body>
     <!-- Navigation-->
     <%- include('./partials/nav.ejs') %>
-     <!-- Page Header -->
-     <header class="masthead" style="background-image: url('<%= blog.image %>')">
+    
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('../<%= blog.image %>')">
         <div class="overlay"></div>
         <div class="container">
-          <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-              <div class="post-heading">
-                <h1><%= blog.title %></h1>
-                <span class="meta">Posted by
-                  <a href="#"><a href="#"><%= blog.username %></a>
-                  on <%= blog.createdAt.toDateString() %>
-                </span>
-              </div>
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="post-heading">
+                        <h1><%= blog.title %></h1>
+                        <span class="meta">Posted by
+                            <a href="#"><%= blog.username %></a>
+                            on <%= blog.createdAt.toDateString() %>
+                        </span>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </header>
-  
-      <!-- Post Content -->
-      <article>
+    </header>
+
+    <!-- Post Content -->
+    <article>
         <div class="container">
-          <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-              <%= blog.body %>
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <%= blog.body %>
+                </div>
+                <div>
+                    <a class="delete" data-doc ="<%= blog.id %>">delete Post</a>
+                </div>
             </div>
-          </div>
         </div>
-      </article>
+    </article>
 
     <!-- Footer-->
     <%- include('./partials/footer.ejs') %>
-    <!-- Bootstrap core JS-->
+
+    <!-- JavaScript for deleting -->
     <script>
         const trashcan = document.querySelector('a.delete');
-    
+
         trashcan.addEventListener('click', (e) => {
-          const endpoint = `/blogs/${trashcan.dataset.doc}`;
-    
-          fetch(endpoint, {
-            method: 'DELETE',
-          })
-          .then(response => response.json())
-          .then(data => window.location.href = data.redirect)
-          .catch(err => console.log(err));
+            const endpoint = `/blogs/${trashcan.dataset.doc}`;
+
+            fetch(endpoint, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => window.location.href = data.redirect)
+            .catch(err => console.log(err));
         });
+    </script>
+
+    <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+    <script src="/scripts.js"></script>
 </body>
 </html>
