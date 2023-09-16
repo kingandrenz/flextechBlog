@@ -72,6 +72,25 @@ const blog_create_post = (req, res) => {
     });
 }
 
+const ck_Editor = (req, res) => {
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send('No files were uploaded.');
+    }
+  
+    const ckeditorImage = req.files.upload;
+  
+    // Move the uploaded image to the desired location
+    ckeditorImage.mv(path.resolve(__dirname, '../public/img', ckeditorImage.name), (error) => {
+      if (error) {
+        console.error(error);
+        return res.status(500).send('File upload failed.');
+      }
+  
+      // Respond with the image URL
+      res.json({ uploaded: true, url: `uploads/${ckeditorImage.name}` });
+    });
+  };
+
 const blog_delete = (req, res) => {
     const id = req.params.id;
     Blog.findByIdAndDelete(id)
@@ -89,4 +108,5 @@ module.exports = {
     blog_create_get,
     blog_create_post,
     blog_delete,
+    ck_Editor,
 }

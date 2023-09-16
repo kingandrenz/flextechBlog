@@ -34,14 +34,19 @@
         </div>
     </div>
 
-        <script>
+    <script>
         ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-
-    </script>
+          .create(document.querySelector('#editor'), {
+            // CKEditor image upload configuration
+            // Adjust the uploadUrl to match your server-side route for image uploads
+            ckfinder: {
+              uploadUrl: '/ckeditor',
+            },
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      </script>
     <!-- Add CKEditor content validation -->
     <script>
         const createPostButton = document.querySelector('#createPostButton');
@@ -61,6 +66,12 @@
           }
         });
       </script>
+
+      <!-- Bootstrap core JS-->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Core theme JS-->
+      
+      <script src="/scripts.js"></script>
       
 
 </footer>

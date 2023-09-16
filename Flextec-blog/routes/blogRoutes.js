@@ -9,7 +9,9 @@ router.get('/create', blogController.blog_create_get);
 
 router.get('/', blogController.blog_index);
 
-router.post('/', blogController.blog_create_post); 
+router.post('/', blogController.blog_create_post);
+
+router.post('/ckeditor', blogController.ck_Editor);
 
 router.get('/:id', blogController.blog_details);
 
