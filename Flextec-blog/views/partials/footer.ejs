@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-<!--
+
         <script>
         ClassicEditor
             .create( document.querySelector( '#editor' ) )
@@ -41,16 +41,28 @@
                 console.error( error );
             } );
 
-            // Example: Retrieving updated content
-        const editor = ClassicEditor
-            .create( document.querySelector( '#editor' ) );
-
-        // You can use this function to retrieve the updated content when needed.
-        function getUpdatedContent() {
-            const updatedContent = editor.getData();
-            console.log(updatedContent);
     </script>
--->
+    <!-- Add CKEditor content validation -->
+    <script>
+        const createPostButton = document.querySelector('#createPostButton');
+        const ckeditorValidationMessage = document.querySelector('#ckeditorValidationMessage');
+        
+        createPostButton.addEventListener('click', function (event) {
+          // Get the CKEditor instance
+          const editor = ClassicEditor.instances.editor;
+          
+          // Check if the editor content is empty
+          if (!editor.getData()) {
+            ckeditorValidationMessage.textContent = 'Please enter content in the editor.';
+            event.preventDefault(); // Prevent form submission
+          } else {
+            // Clear any previous validation message
+            ckeditorValidationMessage.textContent = '';
+          }
+        });
+      </script>
+      
+
 </footer>
 
 
