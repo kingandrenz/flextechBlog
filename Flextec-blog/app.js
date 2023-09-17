@@ -5,10 +5,7 @@ const fileUpload = require("express-fileupload");
 const path = require('path');
 const session = require('express-session');
 const blogCreate = require('./middleware/blogCreate');
-
-const blogRoutes = require('./routes/blogRoutes');
-const regRoutes = require('./routes/regRoutes');
-const loginRoutes = require('./routes/loginRoutes');
+const connectMongo = require('connect-mongo');
 
 const app = express();
 const Port = 3000;
@@ -23,8 +20,10 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, })
 // register view
 app.set('view engine', 'ejs');
 
-
 // Middleware static files
+// Create a MongoStore instance
+const MongoStore = new connectMongo(session);
+
 // Configure express-session
 app.use(
   session({
@@ -35,9 +34,14 @@ app.use(
       maxAge: 3600000, // Session duration in milliseconds (1 hour in this example)
       secure: false, // Set to true if running over HTTPS
     },
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    }),
+
     // Other session options as needed
   })
 );
+
 app.use(fileUpload());
 //app.use('/create', create);
 app.use(express.static(path.join(__dirname, 'public/uploads')));
