@@ -6,6 +6,7 @@ const path = require('path');
 const blogCreate = require('./middleware/blogCreate');
 
 const blogRoutes = require('./routes/blogRoutes');
+const regRoutes = require('./routes/regRoutes');
 
 const app = express();
 const Port = 3000;
@@ -23,6 +24,7 @@ app.set('view engine', 'ejs');
 
 // Middleware static files
 app.use(fileUpload());
+//app.use('/create', create);
 app.use(express.static(path.join(__dirname, 'public/uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
@@ -31,7 +33,7 @@ app.use((req, res, next) => {
   res.locals.path = req.path;
   next();
 });
-app.use('/store', blogCreate)
+app.use('/store', blogCreate);
 
 // Basic routing
 app.get('/', (req, res) => {
@@ -48,6 +50,7 @@ app.get('/about', (req, res) => {
 
 // blog routes
 app.use('/blogs', blogRoutes);
+app.use('/users/register', regRoutes);
 
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' });

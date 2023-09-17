@@ -24,7 +24,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 offset-md-2">
-            <form action="/blogs" method="POST" encType="multipart/form-data">
+            <form action="/blogs" method="POST" enctype="multipart/form-data">
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
                   <label>Username</label>
@@ -52,18 +52,28 @@
                 </div>
               </div>
               <div class="form-group mt-3">
+                <!-- Existing file input for your header background -->
                 <input type="file" name="image" id="image" class="form-control-file">
+              </div>
+              <div class="form-group mt-3">
+                <!-- CKEditor file upload input (use a unique name) -->
+                <input type="file" name="ckeditorUpload" id="ckeditorUpload" class="form-control-file">
               </div>
               <div class="form-group my-4 text-center">
                 <button class="btn btn-primary">Create Post</button>
               </div>
-            </form>
+            </form>            
           </div>
         </div>
       </div>
 
             <!-- Footer-->
             <%- include('./partials/footer.ejs') %>
+            <!-- Bootstrap core JS-->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Core theme JS-->
+      
+      <script src="/scripts.js"></script>
     </body>
 
 </html>
