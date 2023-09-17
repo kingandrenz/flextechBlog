@@ -3,10 +3,12 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const fileUpload = require("express-fileupload");
 const path = require('path');
+const session = require('express-session');
 const blogCreate = require('./middleware/blogCreate');
 
 const blogRoutes = require('./routes/blogRoutes');
 const regRoutes = require('./routes/regRoutes');
+const loginRoutes = require('./routes/loginRoutes');
 
 const app = express();
 const Port = 3000;
@@ -23,6 +25,19 @@ app.set('view engine', 'ejs');
 
 
 // Middleware static files
+// Configure express-session
+app.use(
+  session({
+    secret: '@Akaka1na5', //  secret key for session encryption
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 3600000, // Session duration in milliseconds (1 hour in this example)
+      secure: false, // Set to true if running over HTTPS
+    },
+    // Other session options as needed
+  })
+);
 app.use(fileUpload());
 //app.use('/create', create);
 app.use(express.static(path.join(__dirname, 'public/uploads')));
@@ -50,7 +65,12 @@ app.get('/about', (req, res) => {
 
 // blog routes
 app.use('/blogs', blogRoutes);
+
+// registration routes
 app.use('/users/register', regRoutes);
+
+// login routes
+app.use('/users/login', loginRoutes);
 
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
