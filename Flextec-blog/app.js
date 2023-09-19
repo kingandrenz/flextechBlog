@@ -5,7 +5,7 @@ const fileUpload = require("express-fileupload");
 const path = require('path');
 const session = require('express-session');
 const blogCreate = require('./middleware/blogCreate');
-const connectMongo = require('connect-mongo');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const app = express();
 const Port = 3000;
@@ -20,28 +20,31 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, })
 // register view
 app.set('view engine', 'ejs');
 
-// Middleware static files
-// Create a MongoStore instance
-const MongoStore = new connectMongo(session);
+// Create a MongoDBStore instance
+const store = new MongoDBStore({
+  uri: dbURI,
+  collection: 'sessions',
+});
 
-// Configure express-session
+// Middleware static files
 app.use(
   session({
-    secret: '@Akaka1na5', //  secret key for session encryption
+    secret: '@Akaka1na5', // secret key for session encryption
     resave: false,
     saveUninitialized: false,
+    store: store,
     cookie: {
+      expires: 60000,
       maxAge: 3600000, // Session duration in milliseconds (1 hour in this example)
       secure: false, // Set to true if running over HTTPS
     },
-    store: new MongoStore({
-      mongooseConnection: mongoose.connection
-    }),
-
     // Other session options as needed
   })
 );
 
+const blogRoutes = require('./routes/blogRoutes');
+const regRoutes = require('./routes/regRoutes');
+const loginRoutes = require('./routes/loginRoutes');
 app.use(fileUpload());
 //app.use('/create', create);
 app.use(express.static(path.join(__dirname, 'public/uploads')));
@@ -49,6 +52,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use((req, res, next) => {
+  if (req.session.user && req.cookies.user_side) {
+    res.redirect('/');
+  }
   res.locals.path = req.path;
   next();
 });
@@ -56,15 +62,15 @@ app.use('/store', blogCreate);
 
 // Basic routing
 app.get('/', (req, res) => {
-    res.redirect('/blogs');
+  res.redirect('/blogs');
 });
 
 app.get('/contact', (req, res) => {
-    res.render('contact', { title: 'Contact' });
+  res.render('contact', { title: 'Contact' });
 });
-  
+
 app.get('/about', (req, res) => {
-    res.render('about', { title: 'About' });
+  res.render('about', { title: 'About' });
 });
 
 // blog routes
@@ -77,5 +83,5 @@ app.use('/users/register', regRoutes);
 app.use('/users/login', loginRoutes);
 
 app.use((req, res) => {
-    res.status(404).render('404', { title: '404' });
+  res.status(404).render('404', { title: '404' });
 });
