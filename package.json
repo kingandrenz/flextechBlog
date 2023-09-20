@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "connect-flash": "^0.1.1"
+  }
+}

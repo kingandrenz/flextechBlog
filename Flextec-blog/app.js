@@ -6,6 +6,7 @@ const path = require('path');
 const session = require('express-session');
 const blogCreate = require('./middleware/blogCreate');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const connectFlash = require('connect-flash');
 
 const app = express();
 const Port = 3000;
@@ -42,6 +43,15 @@ app.use(
   })
 );
 
+app.use(connectFlash());
+//check if user is logged in
+app.use((req, res, next) => {
+  const isUserLoggedIn = req.session.user ? true : false;
+  res.locals.isUserLoggedIn = isUserLoggedIn;
+  next();
+});
+
+
 const blogRoutes = require('./routes/blogRoutes');
 const regRoutes = require('./routes/regRoutes');
 const loginRoutes = require('./routes/loginRoutes');
@@ -61,6 +71,10 @@ app.use((req, res, next) => {
 app.use('/store', blogCreate);
 
 // Basic routing
+app.get('/', (req, res) => {
+  res.render('your_template', { isUserLoggedIn: res.locals.isUserLoggedIn });
+});
+
 app.get('/', (req, res) => {
   res.redirect('/blogs');
 });
