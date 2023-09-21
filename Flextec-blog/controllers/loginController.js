@@ -2,7 +2,8 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 const getUser_login = (req, res) => {
-    res.render('login');
+    res.setHeader('Cache-Control', 'no-store'); // Disable caching
+    res.render('login', { error: req.query.error }, {title: 'Login page'});
 }
 
 const postUser_login = async (req, res) => {
@@ -11,12 +12,15 @@ const postUser_login = async (req, res) => {
     try {
         // Try to find the user using a Promise
         const user = await User.findOne({ email });
+        
 
         if (user) {
+            console.log('email found');
             // User found, compare passwords
             const match = await bcrypt.compare(password, user.password);
 
             if (match) {
+                console.log(`${match}`);
                 // Passwords match, store user in session
                 req.session.userId = user._id; // Store user data in the session
                 return res.redirect('/');

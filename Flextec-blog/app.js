@@ -7,6 +7,7 @@ const session = require('express-session');
 const blogCreate = require('./middleware/blogCreate');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const connectFlash = require('connect-flash');
+const expressDebug = require('express-debug');
 
 const app = express();
 const Port = 3000;
@@ -69,11 +70,9 @@ app.use((req, res, next) => {
   next();
 });
 app.use('/store', blogCreate);
+expressDebug(app, {/* options */});
 
 // Basic routing
-app.get('/', (req, res) => {
-  res.render('your_template', { isUserLoggedIn: res.locals.isUserLoggedIn });
-});
 
 app.get('/', (req, res) => {
   res.redirect('/blogs');

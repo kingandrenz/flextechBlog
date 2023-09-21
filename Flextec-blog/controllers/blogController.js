@@ -8,7 +8,7 @@ const path = require('path');
 const blog_index = (req, res) => {
     Blog.find().sort({ createdAt: -1})
     .then(result => {
-        res.render('index', {blogs: result, title: 'All blogs'})
+        res.render('index',  {blogs: result, title: 'All blogs'}, { isUserLoggedIn: res.locals.isUserLoggedIn })
     })
     .catch(err => {
         console.log(err);
