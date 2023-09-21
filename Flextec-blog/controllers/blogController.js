@@ -6,14 +6,16 @@ const path = require('path');
 // blog_index, blog_details, blog_create_get, blog_create_post, blog_delete
 
 const blog_index = (req, res) => {
-    Blog.find().sort({ createdAt: -1})
-    .then(result => {
-        res.render('index',  {blogs: result, title: 'All blogs'}, { isUserLoggedIn: res.locals.isUserLoggedIn })
-    })
-    .catch(err => {
-        console.log(err);
-    })
+    Blog.find()
+        .sort({ createdAt: -1 })
+        .then(result => {
+            res.render('index', { blogs: result, title: 'All blogs', isUserLoggedIn: res.locals.isUserLoggedIn });
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
+
 
 const blog_details = (req, res) => {
     const id = req.params.id;

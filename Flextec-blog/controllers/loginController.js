@@ -3,7 +3,7 @@ const User = require('../models/user');
 
 const getUser_login = (req, res) => {
     res.setHeader('Cache-Control', 'no-store'); // Disable caching
-    res.render('login', { error: req.query.error }, {title: 'Login page'});
+    res.render('login', { title:'title', error: req.query.error });
 }
 
 const postUser_login = async (req, res) => {
