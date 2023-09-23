@@ -6,19 +6,34 @@
             <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/blogs">Home</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/about">About</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/blogs/create">Create Post</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/contact">Contact</a></li>
+            <ul class="navbar-nav ml-auto">
+                <!-- Always display these links -->
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blogs">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blogs/create">Create Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/contact">Contact</a>
+                </li>
 
+                <!-- Display "logout" link only if the user is logged in -->
                 <% if (!isUserLoggedIn) { %>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/users/login">Login</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/users/register">Register</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="/users/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="/users/register">Register</a>
+                    </li>
                 <% } else { %>
-                    <!-- Display logout link or user profile link when the user is logged in -->
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/users/logout">Logout</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/users/profile">Profile</a></li>
+                    <!-- Display "login" and "register" links only if the user is not logged in -->
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="/users/logout">Logout</a>
+                    </li>
                 <% } %>
             </ul>
         </div>

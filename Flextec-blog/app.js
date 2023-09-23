@@ -71,6 +71,16 @@ app.use((req, res, next) => {
 });
 app.use('/store', blogCreate);
 expressDebug(app, {/* options */});
+app.use('*', (req, res, next) => {
+  // Determine whether the user is logged in or not
+  const isUserLoggedIn = req.session.userId ? true : false;
+
+  // Pass isUserLoggedIn to all rendered views
+  res.locals.isUserLoggedIn = isUserLoggedIn;
+
+  next();
+});
+
 
 // Basic routing
 

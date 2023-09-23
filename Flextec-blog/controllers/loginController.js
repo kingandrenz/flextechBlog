@@ -3,8 +3,16 @@ const User = require('../models/user');
 
 const getUser_login = (req, res) => {
     res.setHeader('Cache-Control', 'no-store'); // Disable caching
-    res.render('login', { title:'login', error: req.query.error });
+    const error = req.query.error;
+    let errorMessage = '';
+
+    if (error === 'invalid_credentials') {
+        errorMessage = 'Invalid email or password';
+    }
+
+    res.render('login', { title: 'login', error: errorMessage });
 }
+
 
 const postUser_login = async (req, res) => {
     const { email, password } = req.body;
@@ -30,9 +38,8 @@ const postUser_login = async (req, res) => {
         // If user not found or passwords don't match, redirect with an error
         return res.redirect('/users/login?error=invalid_credentials');
     } catch (error) {
-        // Handle any errors here
         console.error(error);
-        return res.status(500).send('Internal Server Error');
+        return res.status(500).send(`Error: ${error.message}`);
     }
 }
 

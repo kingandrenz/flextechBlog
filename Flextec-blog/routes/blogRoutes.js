@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const blogController = require('../controllers/blogController');
-const fileUpload = require("express-fileupload");
 const auth = require('../middleware/auth');
 
 

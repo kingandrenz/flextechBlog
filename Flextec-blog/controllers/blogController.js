@@ -1,10 +1,10 @@
 const Blog = require('../models/blogs');
 const path = require('path');
+const auth = require('../middleware/auth');
 
 
 
 // blog_index, blog_details, blog_create_get, blog_create_post, blog_delete
-
 const blog_index = (req, res) => {
     Blog.find()
         .sort({ createdAt: -1 })
@@ -16,16 +16,15 @@ const blog_index = (req, res) => {
         });
 }
 
-
-const blog_details = (req, res) => {
+const blog_details = async (req, res) => {
     const id = req.params.id;
-    Blog.findById(id)
-    .then(result => {
-        res.render('details', {blog: result, title: 'Blog Details'});
-    })
-    .catch(err => {
+    try {
+        const result = await Blog.findById(id);
+        res.render('details', { blog: result, title: 'Blog Details' });
+    } catch (err) {
         console.log(err);
-    });
+        res.status(500).send('Internal Server Error');
+    }
 }
 
 const blog_create_get = (req, res) => {
