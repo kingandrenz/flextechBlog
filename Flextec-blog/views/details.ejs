@@ -31,14 +31,11 @@
                     <%- blog.body %>
                 </div>
             <div>
-                <% console.log("auth:", auth); %>
-                <% console.log("blog.user:", blog.user); %>
-                <% console.log('blog.user._id:', blog.user._id); %>
-                <% if (auth === blog.user._id) { %>
-                    <div>
-                        <a class="edit" href="/blogs/edit/<%= blog._id %>">Edit Post</a>
-                        <a class="delete" data-doc="<%= blog._id %>">Delete Post</a>
-                    </div>
+                
+                <% if (auth && blog.user && auth.toString() === blog.user._id.toString()) { %>
+                    <!-- Only show the buttons if the logged-in user is the author -->
+                    <a href="/blogs/edit/<%= blog._id %>">Edit Post</a>
+                    <a href="#" onclick="deletePost('<%= blog._id %>')">Delete Post</a>
                 <% } %>
             </div>
             </div>
