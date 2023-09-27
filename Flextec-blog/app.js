@@ -33,7 +33,7 @@ app.use(
   session({
     secret: '@Akaka1na5', // secret key for session encryption
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     store: store,
     cookie: {
       expires: 60000,
