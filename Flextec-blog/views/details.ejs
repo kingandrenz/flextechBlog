@@ -35,7 +35,7 @@
                     <% if (auth && blog.user && auth.toString() === blog.user._id.toString()) { %>
                         <!-- Only show the buttons if the logged-in user is the author -->
                         <a class="btn btn-primary" href="/blogs/edit/<%= blog._id %>">Edit Post</a>
-                        <a class="btn btn-danger delete" href="#" onclick="deletePost('<%= blog._id %>')">Delete Post</a>
+                        <a class="btn btn-danger delete" data-doc="<%= blog._id %>">Delete Post</a>
                     </div>
                 <% } %>
             </div>
@@ -51,13 +51,15 @@
         const trashcan = document.querySelector('a.delete');
 
         trashcan.addEventListener('click', (e) => {
-            const endpoint = `/blogs/${trashcan.dataset.doc}`;
+            const endpoint = `/blogs/${trashcan.dataset.doc}`; // Get the post ID from the data attribute
 
             fetch(endpoint, {
                 method: 'DELETE',
             })
             .then(response => response.json())
-            .then(data => window.location.href = data.redirect)
+            .then((data) => {
+                window.location.href = data.redirect;
+            })
             .catch(err => console.log(err));
         });
     </script>
