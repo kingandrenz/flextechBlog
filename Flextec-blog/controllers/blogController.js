@@ -124,7 +124,7 @@ const blog_edit_get = async (req, res) => {
     const id = req.params.id;
     try {
         const blog = await Blog.findById(id);
-        res.render('edit', { blog }); // Assuming you have an "edit.ejs" view for editing posts
+        res.render('edit', { blog, title: 'Edit Blog Post' }); // Assuming you have an "edit.ejs" view for editing posts
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -137,13 +137,30 @@ const blog_edit_put = async (req, res) => {
     const { title, snippet, body } = req.body;
 
     try {
-        const updatedBlog = await Blog.findByIdAndUpdate(id, { title, snippet, body }, { new: true });
-        res.redirect(`/blogs/${updatedBlog._id}`); // Redirect to the updated post's details page
+        // Find the existing blog post by ID
+        const existingBlog = await Blog.findById(id);
+
+        if (!existingBlog) {
+            // Handle the case where the blog post doesn't exist
+            return res.status(404).send('Blog post not found');
+        }
+
+        // Update the fields you want to change
+        existingBlog.title = title;
+        existingBlog.snippet = snippet;
+        existingBlog.body = body;
+
+        // Save the updated blog post
+        const updatedBlog = await existingBlog.save();
+
+        // Redirect to the updated post's details page
+        res.redirect(`/blogs/${updatedBlog._id}`);
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
     }
 }
+
 
 
 module.exports = {

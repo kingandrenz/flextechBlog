@@ -28,6 +28,7 @@
     "express-session": "^1.17.3",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
+    "method-override": "^3.0.0",
     "mongodb": "^5.0.0",
     "mongoose": "^7.5.0",
     "mongose": "0.0.2-security",

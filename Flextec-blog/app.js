@@ -8,12 +8,13 @@ const blogCreate = require('./middleware/blogCreate');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const connectFlash = require('connect-flash');
 const expressDebug = require('express-debug');
+const methodOverride = require('method-override');
 
 const app = express();
-const Port = 3000;
+const Port = process.env.PORT || 3000;
 
 // connect to mongodb & listen for requests
-const dbURI = 'mongodb+srv://Andrenz:Akaka1na5@flextech-blog.m0d8jso.mongodb.net/Flextech?retryWrites=true&w=majority';
+const dbURI = process.env.MONGODB_URI || 'mongodb+srv://Andrenz:Akaka1na5@flextech-blog.m0d8jso.mongodb.net/Flextech?retryWrites=true&w=majority';
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, })
   .then(result => app.listen(Port, () => console.log(`listening on ${Port}`)))
@@ -62,6 +63,9 @@ app.use(express.static(path.join(__dirname, 'public/uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+// Method-override middleware for HTTP method tunneling
+app.use(methodOverride('_method'));
+
 app.use((req, res, next) => {
   if (req.session.user && req.cookies.user_side) {
     res.redirect('/');
