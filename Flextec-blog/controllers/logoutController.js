@@ -1,5 +1,5 @@
 // controllers/logoutController.js
-module.exports = (req, res) => {
+module.exports.logout_get = (req, res) => {
     req.session.destroy(() => {
         res.redirect('/')
     })

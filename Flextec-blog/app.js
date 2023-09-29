@@ -57,6 +57,7 @@ app.use((req, res, next) => {
 const blogRoutes = require('./routes/blogRoutes');
 const regRoutes = require('./routes/regRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+const logoutRoutes = require('./routes/logoutRoutes');
 app.use(fileUpload());
 //app.use('/create', create);
 app.use(express.static(path.join(__dirname, 'public/uploads')));
@@ -108,6 +109,9 @@ app.use('/users/register', regRoutes);
 
 // login routes
 app.use('/users/login', loginRoutes);
+
+// logout routes
+app.use('/users/logout', logoutRoutes);
 
 app.use((req, res) => {
   res.status(404).render('404', { title: '404' });
