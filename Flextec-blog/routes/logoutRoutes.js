@@ -1,10 +1,10 @@
+// Logout routes
+const express = require('express');
 const router = express.Router();
-//const redirectIfAuthenticated = require('../middleware/redirectIfAuthenticated');
 const logoutController = require('../controllers/logoutController');
 
-
-// Logout route
-router.get('/', logoutController.logout_get);
+// GET logout page
+router.get('/', logoutController);
 //router.post('/', logoutController.logout_post);
 
 module.exports = router;
