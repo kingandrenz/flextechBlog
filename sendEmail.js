@@ -7,15 +7,15 @@ const sendEmail = (name, email, phone, message) => {
     const transporter = nodemailer.createTransport({
         service: 'Gmail', // e.g., 'Gmail', 'Yahoo', 'Outlook', etc.
         auth: {
-            user: 'kanuchibueze@gmail.com', // Your email address
-            pass: 'aka2ba5ka1' // Your email password
+            user: process.env.EMAIL_USER, // Your email address stored in an environment variable
+            pass: process.env.EMAIL_PASSWORD // Your email password stored in an environment variable
         }
     });
 
     // Define the email data
     const mailOptions = {
-        from: 'your_email@example.com', // Sender's email address
-        to: 'recipient@example.com', // Recipient's email address
+        from: process.env.EMAIL_USER, // Sender's email address
+        to: 'kanuchibueze@gmail.com', // Recipient's email address
         subject: 'New Contact Form Submission', // Email subject
         text: `
             Name: ${name}
