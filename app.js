@@ -1,4 +1,6 @@
+require('dotenv').config();
 const express = require('express');
+const nodemailer = require('nodemailer');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const fileUpload = require("express-fileupload");
@@ -14,7 +16,7 @@ const app = express();
 const Port = process.env.PORT || 3000;
 
 // connect to mongodb & listen for requests
-const dbURI = process.env.MONGODB_URI || 'mongodb+srv://Andrenz:Akaka1na5@flextech-blog.m0d8jso.mongodb.net/Flextech?retryWrites=true&w=majority';
+const dbURI = process.env.MONGODB_URI;
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, })
   .then(result => app.listen(Port, () => console.log(`listening on ${Port}`)))
@@ -93,9 +95,6 @@ app.get('/', (req, res) => {
   res.redirect('/blogs');
 });
 
-app.get('/contact', (req, res) => {
-  res.render('contact', { title: 'Contact' });
-});
 
 app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });

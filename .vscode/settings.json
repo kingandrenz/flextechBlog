@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/9bd62f79-fd23-4528-9648-d218f1bd4455/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/flextech",
+    "appService.deploySubpath": "Flextec-blog"
+}
