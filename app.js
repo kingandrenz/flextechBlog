@@ -11,6 +11,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const connectFlash = require('connect-flash');
 const expressDebug = require('express-debug');
 const methodOverride = require('method-override');
+const sendEmail = require('./sendEmail');
 
 const app = express();
 const Port = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, })
 
 // register view
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Create a MongoDBStore instance
 const store = new MongoDBStore({
@@ -98,6 +100,22 @@ app.get('/', (req, res) => {
 
 app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
+});
+
+app.get('/contact', (req, res) => {
+  res.render('contact', { title: 'Contact' });
+});
+
+// Handle contact form submission
+app.post('/contact', (req, res) => {
+  // Use req.body to access form data
+  const { name, email, phone, message } = req.body;
+
+  // Add logic to handle form submission here
+  sendEmail(name, email, phone, message);
+
+  // Example: Sending a response with a success message
+  res.render('contact', { title: 'Contact', successMessage: 'Your message has been sent successfully!' });
 });
 
 // blog routes

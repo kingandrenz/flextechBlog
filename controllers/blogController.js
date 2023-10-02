@@ -1,7 +1,7 @@
 const Blog = require('../models/blogs');
 const path = require('path');
 const auth = require('../middleware/auth');
-
+//const sendEmail = require('../sendEmail');
 
 
 // blog_index, blog_details, blog_create_get, blog_create_post, blog_delete
@@ -161,6 +161,18 @@ const blog_edit_put = async (req, res) => {
     }
 }
 
+// Controller function to handle contact form submission
+/* const handleContactForm = (req, res) => {
+    // Retrieve the form data from the request body
+    const { name, email, phone, message } = req.body;
+
+    // Add logic to handle form submission here
+    sendEmail(name, email, phone, message);
+
+    // Example: Sending a response with a success message
+    res.render('contact', { successMessage: 'Your message has been sent successfully!' });
+};
+*/
 
 
 module.exports = {
@@ -173,4 +185,5 @@ module.exports = {
     create_User,
     blog_edit_get,
     blog_edit_put,
+    //handleContactForm,
 }
