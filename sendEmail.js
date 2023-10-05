@@ -2,6 +2,11 @@
 require('dotenv').config();
 const nodemailer = require('nodemailer');
 
+console.log(process.env.EMAIL_SERVICE);
+console.log(process.env.EMAIL_USER);
+console.log(process.env.EMAIL_PASS);
+
+
 // Create a function to send an email
 const sendEmail = (name, email, phone, message) => {
     // Create a Nodemailer transporter using your email service provider's SMTP settings
@@ -9,7 +14,7 @@ const sendEmail = (name, email, phone, message) => {
         service: process.env.EMAIL_SERVICE, // e.g., 'Gmail', 'Yahoo', 'Outlook', etc.
         auth: {
             user: process.env.EMAIL_USER, // Your email address stored in an environment variable
-            pass: process.env.EMAIL_PASSWORD // Your email password stored in an environment variable
+            pass: process.env.EMAIL_PASS // Your email password stored in an environment variable
         }
     });
 

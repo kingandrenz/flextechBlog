@@ -2,14 +2,19 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
+console.log(process.env.EMAIL_SERVICE);
+console.log(process.env.EMAIL_USER);
+console.log(process.env.EMAIL_PASS);
+
+
 // Create a function to send a password reset email
 const sendPasswordResetEmail = (email, resetLink) => {
     // Create a Nodemailer transporter using your email service provider's SMTP settings
     const transporter = nodemailer.createTransport({
         service: 'Gmail', // e.g., 'Gmail', 'Yahoo', 'Outlook', etc.
         auth: {
-            user: 'kanuchibueze@gmail.com', // Your email address stored in an environment variable
-            pass: 'ufnfiovotalasxgu' // Your email password stored in an environment variable
+            user: process.env.EMAIL_USER, // Your email address stored in an environment variable
+            pass: process.env.EMAIL_PASS  // Your email password stored in an environment variable
         }
     });
 
