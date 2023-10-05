@@ -1,53 +1,58 @@
 <!DOCTYPE html>
 <html>
-    <%- include('./partials/head.ejs') %>
-    <body>
-      <%- include('./partials/head.ejs') %>
-
-        <!-- Page Header -->
-<header class="masthead">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="page-heading">
-            <h1>Login</h1>
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <!-- Page Header -->
+    <header class="masthead">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="page-heading">
+              <h1>Login</h1>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </header>
-  
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <form action="/users/login" method="POST" encType="multipart/form-data">
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>Email</label>
-              <input type="email" name="email" placeholder="Email" class="form-control">
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <form action="/users/login" method="POST" encType="multipart/form-data">
+            <!-- Email and Password inputs as you already have them -->
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Email" class="form-control">
+              </div>
             </div>
-          </div>
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>Password</label>
-              <input type="password" name="password" placeholder="Password" class="form-control">
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Password" class="form-control">
+              </div>
             </div>
-          </div>
-        
-          <div class="form-group my-4 text-center">
-            <button class="btn btn-primary">Login</button>
-          </div>
-        </form>
+
+            <!-- Add the "Forgot Password" button -->
+            <div class="form-group my-4 text-center">
+              <a href="/blogs/users/forgot-password" class="btn btn-link">Forgot Password?</a>
+            </div>
+
+            <!-- Login button -->
+            <div class="form-group my-4 text-center">
+              <button class="btn btn-primary">Login</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 
-  <%- include('./partials/footer.ejs') %>
+    <%- include('./partials/footer.ejs') %>
 
-      <!-- Bootstrap core JS-->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-      <!-- Core theme JS-->
-      <script src="./scripts.js"></script>
-    </body>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="./scripts.js"></script>
+  </body>
 </html>

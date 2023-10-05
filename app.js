@@ -12,6 +12,10 @@ const connectFlash = require('connect-flash');
 const expressDebug = require('express-debug');
 const methodOverride = require('method-override');
 const sendEmail = require('./sendEmail');
+const { showForgotPasswordForm,
+        processForgotPasswordRequest,
+        showResetPasswordForm,
+       } = require('./controllers/resetPasswordController');
 
 const app = express();
 const Port = process.env.PORT || 3000;
@@ -106,6 +110,9 @@ app.get('/contact', (req, res) => {
   res.render('contact', { title: 'Contact' });
 });
 
+app.get('/blogs/users/forgot-password', showForgotPasswordForm);
+app.post('/blogs/users/forgot-password', processForgotPasswordRequest);
+app.get('/blogs/users/reset-password/:token', showResetPasswordForm);
 // Handle contact form submission
 app.post('/contact', (req, res) => {
   // Use req.body to access form data
