@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint",
     "check-lint": "lint [0-9]*.js",
-    "dev": "nodemon --exec babel-node --presets babel-preset-env ./server.js ./database.csv",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "dev": "nodemon --exec babel-node --presets babel-preset-env ./server.js ./database.csv"
   },
   "author": "",
   "license": "ISC",
@@ -44,11 +44,12 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "chai": "^4.2.0",
+    "chai": "^4.3.10",
     "eslint": "^8.49.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^27.4.0",
+    "mocha": "^10.2.0",
     "nodemon": "^3.0.1",
     "npm": "^10.1.0",
     "request": "^2.88.0",
