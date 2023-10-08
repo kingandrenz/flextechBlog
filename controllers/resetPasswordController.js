@@ -41,7 +41,7 @@ const processForgotPasswordRequest = async (req, res) => {
 // Function to render the reset password form
 const showResetPasswordForm = (req, res) => {
     const token = req.params.token;
-    res.render('resetPassword', { title: 'Reset Password', token });
+    res.render('reset-Password', { title: 'Reset Password', token });
 };
 
 // Function to process the reset password form submission
