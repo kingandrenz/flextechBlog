@@ -23,12 +23,10 @@ const postUser_login = async (req, res) => {
         
 
         if (user) {
-            console.log('email found');
             // User found, compare passwords
             const match = await bcrypt.compare(password, user.password);
 
             if (match) {
-                console.log(`${match}`);
                 // Passwords match, store user in session
                 req.session.userId = user._id; // Store user data in the session
                 return res.redirect('/');
