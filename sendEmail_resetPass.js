@@ -2,9 +2,9 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-console.log(process.env.EMAIL_SERVICE);
-console.log(process.env.EMAIL_USER);
-console.log(process.env.EMAIL_PASS);
+//console.log(process.env.EMAIL_SERVICE);
+//console.log(process.env.EMAIL_USER);
+//console.log(process.env.EMAIL_PASS);
 
 
 // Create a function to send a password reset email
