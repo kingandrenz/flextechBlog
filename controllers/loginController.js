@@ -34,7 +34,7 @@ const postUser_login = async (req, res) => {
         }
 
         // If user not found or passwords don't match, redirect with an error
-        return res.redirect('/users/login?error=invalid_credentials');
+        res.render('login', { title: 'login', error: 'Invalid Email or Password' });
     } catch (error) {
         console.error(error); 
         return res.status(500).send(`Error: ${error.message}`);
