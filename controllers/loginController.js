@@ -7,7 +7,7 @@ const getUser_login = (req, res) => {
     let errorMessage = '';
 
     if (error === 'invalid_credentials') {
-        errorMessage = 'Invalid email or password';
+        errorMessage = 'Incorrect email or password'; // Changed the error message
     }
 
     res.render('login', { title: 'login', error: errorMessage });
@@ -36,10 +36,11 @@ const postUser_login = async (req, res) => {
         // If user not found or passwords don't match, redirect with an error
         return res.redirect('/users/login?error=invalid_credentials');
     } catch (error) {
-        console.error(error);
+        console.error(error); 
         return res.status(500).send(`Error: ${error.message}`);
     }
 }
+
 
 module.exports = {
     getUser_login,
