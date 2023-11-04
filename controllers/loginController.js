@@ -18,28 +18,21 @@ const postUser_login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Try to find the user using a Promise
         const user = await User.findOne({ email });
-        
 
-        if (user) {
-            // User found, compare passwords
-            const match = await bcrypt.compare(password, user.password);
-
-            if (match) {
-                // Passwords match, store user in session
-                req.session.userId = user._id; // Store user data in the session
-                return res.redirect('/');
-            }
+        if (user && (await bcrypt.compare(password, user.password))) {
+            req.session.userId = user._id; // Store user data in the session
+            return res.redirect('/');
         }
 
-        // If user not found or passwords don't match, redirect with an error
-        res.render('login', { title: 'login', error: 'Invalid Email or Password' });
+        const errorMessage = 'Invalid Email or Password';
+        res.render('login', { title: 'login', error: errorMessage });
     } catch (error) {
-        console.error(error); 
+        console.error(error);
         return res.status(500).send(`Error: ${error.message}`);
     }
 }
+
 
 
 module.exports = {
