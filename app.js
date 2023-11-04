@@ -83,7 +83,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use('/store', blogCreate);
-expressDebug(app, {/* options */});
+// expressDebug(app, {/* options */});
 app.use('*', (req, res, next) => {
   // Determine whether the user is logged in or not
   const isUserLoggedIn = req.session.userId ? true : false;
